@@ -1,11 +1,22 @@
 <template>
-  <div id="nav">
+<NavBar></NavBar>
+  <!-- <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </div>
+  </div> -->
   <router-view/>
 </template>
-
+<script type='css'>
+  import 'bootstrap/dist/css/bootstrap.css'
+  import 'bootstrap-vue/dist/bootstrap-vue.css'
+  import NavBar from './components/NavBar'
+  
+  export default {
+    components:{
+      NavBar
+    }
+  }
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
