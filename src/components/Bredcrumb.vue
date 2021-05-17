@@ -6,7 +6,7 @@
       </li>
 
       <li v-for="item in items" :key="item" class="breadcrumb-item" v-bind:class="isTheLastItem(item)?'active':''">
-        <routerLink to="/" v-if="!isTheLastItem(item)">
+        <routerLink to="/categoria" v-if="!isTheLastItem(item)">
           {{item}}
         </routerLink>
         <span  v-if="isTheLastItem(item)">

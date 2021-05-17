@@ -1,23 +1,46 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Lancamento from '../components/Lancamento.vue'
-import Categoria from '../components/Categoria.vue'
+// import Home from '../views/Home.vue'
+import Lancamento from '../views/Lancamento.vue'
+import CategoriaList from '../views/CategoriaList.vue'
+import CategoriaForm from '../views/CategoriaForm.vue'
+import Formulario from '../components/Formulario.vue'
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/', redirect:'/categoria'
   },
   {
     path: '/lancamento',
-    name: 'Lancamento',
-    component: Lancamento
+    name: 'lancamento',
+    component: Lancamento,
+    children: [
+      {
+          path: ':id/edit',
+          name: 'lancamento.edit',
+          component: Formulario
+      },
+
+      {
+          path: 'create',
+          name: 'lancamento.create',
+          component: Formulario
+      }
+    ]
   },
   {
     path: '/categoria',
-    name: 'Categoria',
-    component: Categoria
+    name: 'categoria',
+    component: CategoriaList,
+  },
+  {
+    path: '/categoria/:id/edit',
+    name: 'categoria.edit',
+    component: CategoriaForm
+  },
+  {
+    path: '/categoria/create',
+    name: 'categoria.create',
+    component: CategoriaForm
   },
   {
     path: '/about',
