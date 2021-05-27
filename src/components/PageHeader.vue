@@ -1,7 +1,7 @@
 <template>
   <div class="row mb-4">
 	<div class="col-md-9">
-      <h1 class="h2 border-left pl-2 text-left">
+      <h1 class="font-semibold text-2xl">
         {{pageTitle}}
       </h1>
     </div>
@@ -22,9 +22,9 @@
         buttonClass: String,
         buttonLink: String,
         showButton:{
-		type: Boolean,
-		default: true
-		}
+          type: Boolean,
+          default: true
+        }
       },
   }
 </script>

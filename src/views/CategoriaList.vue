@@ -1,8 +1,13 @@
 <template>
   <div class="container">
     <Bredcrumb :items="['Categorias']"></Bredcrumb>
-    <PageHeader pageTitle="Categorias" buttonText="+ Nova Categoria" buttonLink="categoria.create" buttonClass="btn-success"></PageHeader>
-    <table class="table table-hover">
+    <PageHeader 
+        pageTitle="Categorias"
+        buttonText="+ Nova Categoria"
+        buttonLink="categoria.create"
+        buttonClass="bg-green-500 rounded px-4 py-2 font-sans text-white hover:bg-blue-600">
+    </PageHeader>
+    <table class="table-auto">
       <thead>
           <tr class="bg-primary text-light">  <!-- bg significa background -->
               <th>Categoria</th>
@@ -10,7 +15,7 @@
           </tr>
       </thead>
       <tbody>
-          <tr v-for="categoria in categorias" :key="categoria">
+          <tr class="bg-blue-200" v-for="categoria in categorias" :key="categoria">
               <td>
                   <strong>{{ categoria }}</strong><br>
               </td>

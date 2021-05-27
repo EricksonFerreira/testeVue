@@ -4,11 +4,11 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </div> -->
-  <router-view/>
+    <router-view style="margin:auto"/>
 </template>
-<script type='css'>
-  import 'bootstrap/dist/css/bootstrap.css'
-  import 'bootstrap-vue/dist/bootstrap-vue.css'
+<script>
+  // import 'bootstrap/dist/css/bootstrap.css'
+  // import 'bootstrap-vue/dist/bootstrap-vue.css'
   import NavBar from './components/NavBar'
   
   export default {

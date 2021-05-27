@@ -105,6 +105,8 @@
                 let checkou = this.checkForm();
                 if(checkou == true){
                     this.categorias.push(this.nome);
+                    localStorage.setItem("categoria", JSON.stringify(this.categorias));
+                    // localStorage.categoria = JSON.parse(this.nome);
                     this.nome = "";
                     this.adicionou = true;
                     this.error = null;
@@ -124,7 +126,12 @@
             }
             // e.preventDefault();
             }
-        }
+        },
+        //  watch: {
+        //     nome(newName) {
+        //     localStorage.categoria = newName;
+        //     }
+        // }
 
     }
 </script>
