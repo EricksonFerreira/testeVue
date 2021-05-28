@@ -20,28 +20,25 @@
     <div class="bd-example">
         <table class="table table-striped">
             <thead>
-                <tr class="bg-primary text-light">  <!-- bg significa background -->
+                <tr class="bg-primary text-light">
                     <th>Itens</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr class="bg-blue-200" v-for="item in items" :key="item"> -->
                 <tr v-for="item in items" :key="item">
                     <td>
-                        <strong :id="'item-'+item.id">{{ item.nome }}</strong><br>
+                        <strong :id="'item-'+item.id" :class="{'line-through':item.riscado}">{{ item.nome }}</strong><br>
                     </td>
                     <td>
                         <button 
                             type="submit"
-                            @click="riscar"
                             :id="'botao-'+item.id"
                             v-on:click="riscar(item.id)"
-                            class="btn bg-green-500 rounded px-4 py-2 font-sans text-white">
-                            Riscar
+                            :class="item.riscado?'bg-red-500':'bg-green-500'"
+                            class="btn rounded px-4 py-2 font-sans text-white">
+                            {{item.nomeBotao}}
                         </button>
-                        <!-- <routerLink :to="{ name: 'categoria.edit',params:{ id:item.id }}" class="btn btn-outline-info btn-sm mr-2">Editar</routerLink>
-                        <button class="btn btn-outline-danger btn-sm">Excluir</button> -->
                     </td>
                 </tr>
             </tbody>
@@ -68,23 +65,20 @@
                 adicionou:null,
                 error:null,
                 id:0,
+                content:{},
             }
         },
         computed:{
-            ...mapState({
-                items: state => state.items
-            })
+            ...mapState(['items'])
         },
         methods:{
             cadastrarItem: function(){
-                let checkou = this.checkForm();
-                // console.log(checkou);
-                if(checkou == true){
-                    // let n = {nome:this.nome};
-                    this.items.push({id:this.id,nome:this.nome});
-                    // console.log(this.items);
-                    localStorage.setItem("items", JSON.stringify(this.items));
-                    // localStorage.categoria = JSON.parse(this.nome);
+                if(this.checkForm() == true){
+                    this.content = {id:this.id,nome:this.nome,riscado:false,nomeBotao:'Riscar'},
+                    this.$store.dispatch('addItem',{
+                        item: this.content,
+                        items: this.items,
+                    })
                     this.nome = "";
                     this.id++;
                     this.adicionou = true;
@@ -96,28 +90,10 @@
                 this.adicionou = null;
             },
             riscar: function(id){
-                let item_id = document.getElementById('item-'+id);
-                let botao_id = document.getElementById('botao-'+id);
-                if(item_id != null){
-                    if(item_id.style.textDecoration == "line-through"){
-                        item_id.style.textDecoration = "initial";
-                        // botao_id.setAttribute("value","Riscar");
-                        botao_id.innerHTML="Riscar";
-                        botao_id.classList.remove('bg-red-500'); 
-                        botao_id.classList.add('bg-green-500');
-
-
-                    }else{
-                        item_id.style.textDecoration = "line-through";
-                        botao_id.innerHTML="Tirar risco";
-                        botao_id.classList.add('bg-red-500'); 
-                        botao_id.classList.remove('bg-green-500');
-                    }
-                                            // console.log(botao_id.innerHTML );
-
-                }
-                // this.adicionou = null;
-                // console.log(t);
+                this.$store.dispatch('riscar',{
+                    id: id,
+                    items: this.items,
+                })
             },
             checkForm: function () {
                 if (this.nome) {
@@ -127,7 +103,6 @@
                 if (!this.nome || this.nome == "") {
                     this.error = 'O nome é obrigatório.';
                 }
-            // e.preventDefault();
             }
         },
     }
