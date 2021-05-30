@@ -105,6 +105,10 @@
                 }
             }
         },
+        mounted(){
+            this.$store.dispatch('getItem');
+
+        }
     }
 </script>
 <style scoped lang="scss">

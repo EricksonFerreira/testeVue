@@ -6,6 +6,9 @@ export default createStore({
     items: []
   },
   mutations: {
+    setItem(state,items){
+      state.items.push(items)
+    },
     addItem(state,newItem){
       state.items.push(newItem)
     },
@@ -19,12 +22,17 @@ export default createStore({
     },
   },
   actions: {
-    async addItem({commit},data){
+    async getItem({commit}){
+      let items;
       axios
-      .get('https://60b130551f266100170000a1.mockapi.io/teste/t')
-      .then(response => console.log(response.data));
+      .get('http://localhost:8000/api/todolist')
+      .then(response => items = response.data);
+      commit('setItem',items);
+      localStorage.setItem("items", JSON.stringify(items));
 
 
+    },
+    async addItem({commit},data){
       commit('addItem',data.item);
       localStorage.setItem("items", JSON.stringify(data.items));
     },
